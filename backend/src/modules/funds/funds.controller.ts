@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { FundsService } from './funds.service';
 import { CreateFundDto } from './dtos/fund.dto';
+import { Types } from 'mongoose';
 
 @Controller('funds')
 export class FundsController {
@@ -12,7 +13,7 @@ export class FundsController {
   }
 
   @Get('id')
-  getFundById(@Param('id') id: string) {
+  getFundById(@Param('id') id: Types.ObjectId) {
     return this.fundsService.getFundById(id);
   }
 

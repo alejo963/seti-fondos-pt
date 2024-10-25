@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateFundDto } from './dtos/fund.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Fund } from './schemas/funds.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class FundsService {
@@ -13,7 +13,7 @@ export class FundsService {
     //TODO: Get list of funds
   }
 
-  getFundById(id: string) {
+  getFundById(id: Types.ObjectId) {
     return this.fundsModel.findById(id).exec();
   }
 

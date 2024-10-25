@@ -6,6 +6,7 @@ import { Model, Types } from 'mongoose';
 import { TransactionsService } from 'src/modules/transactions/transactions.service';
 import { UsersService } from '../users.service';
 import { FundsService } from 'src/modules/funds/funds.service';
+import { TransactionType } from 'src/modules/transactions/schemas/transaction.schema';
 
 @Injectable()
 export class SubscriptionsService {
@@ -46,7 +47,13 @@ export class SubscriptionsService {
       );
     }
 
-    //TODO: add transaction
+    const transaction = await this.transactionsService.createTransaction({
+      type: TransactionType.DEPOSIT,
+      amount: payload.amount,
+      user: id,
+      fund: payload.fund,
+    });
+
     await this.usersService.updateUser(id, {
       wallet: userWallet - payload.amount,
     });
@@ -70,6 +77,13 @@ export class SubscriptionsService {
         HttpStatus.NOT_FOUND,
       );
     }
+
+    const transaction = await this.transactionsService.createTransaction({
+      type: TransactionType.WITHDRAW,
+      amount: subscription.amount,
+      user: userId,
+      fund: subscription.fund as Types.ObjectId,
+    });
 
     const userWallet = (await this.usersService.getUser(userId)).wallet;
     await this.usersService.updateUser(userId, {
