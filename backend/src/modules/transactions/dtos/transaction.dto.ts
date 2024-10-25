@@ -1,4 +1,5 @@
 import {
+  IsDate,
   IsEnum,
   IsMongoId,
   IsNumber,
@@ -8,6 +9,11 @@ import {
 } from 'class-validator';
 import { TransactionType } from '../schemas/transaction.schema';
 import { Types } from 'mongoose';
+
+export enum Order {
+  ASC = 'asc',
+  DESC = 'desc',
+}
 
 export class CreateTransactionDto {
   @IsNumber()
@@ -38,4 +44,13 @@ export class FilterTransactionsDto {
   @IsEnum(TransactionType)
   @IsOptional()
   type?: TransactionType;
+  @IsDate()
+  @IsOptional()
+  createdBefore?: Date;
+  @IsDate()
+  @IsOptional()
+  createdAfter?: Date;
+  @IsEnum(Order)
+  @IsOptional()
+  order?: Order;
 }

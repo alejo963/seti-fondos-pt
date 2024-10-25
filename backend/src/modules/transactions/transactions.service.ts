@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import {
   CreateTransactionDto,
   FilterTransactionsDto,
+  Order,
 } from './dtos/transaction.dto';
-import { Transaction, TransactionType } from './schemas/transaction.schema';
-import { Model, Types } from 'mongoose';
+import { Transaction } from './schemas/transaction.schema';
+import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
@@ -20,7 +21,13 @@ export class TransactionsService {
       offset: 0,
     };
 
-    return this.transactionModel.find().skip(offset).limit(limit).exec();
+    const order = params.order === Order.ASC ? 1 : -1;
+    return this.transactionModel
+      .find()
+      .skip(offset)
+      .limit(limit)
+      .sort({ createdAt: order })
+      .exec();
   }
   async createTransaction(payload: CreateTransactionDto) {
     const createdTransaction = new this.transactionModel({
