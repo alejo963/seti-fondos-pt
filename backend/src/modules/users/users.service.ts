@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
 import { Model } from 'mongoose';
-import { CreateUserDto, UpdateUserDto } from './dtos/user.dto';
+import { CreateUserDto } from './dtos/user.dto';
 
 @Injectable()
 export class UsersService {
@@ -19,9 +19,18 @@ export class UsersService {
   }
 
   async createUser(payload: CreateUserDto): Promise<User> {
+    const existingUser = await this.userModel
+      .findOne({ nationalId: payload.nationalId })
+      .exec();
+
+    if (existingUser) {
+      throw new HttpException(
+        `User with nationalId ${payload.nationalId} already exists`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     const createdUser = new this.userModel(payload);
     return createdUser.save();
   }
-
-  async subscribeToFund(payload: UpdateUserDto) {}
 }

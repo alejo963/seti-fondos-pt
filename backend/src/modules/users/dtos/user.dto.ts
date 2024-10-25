@@ -1,11 +1,12 @@
-import { PartialType } from '@nestjs/mapped-types';
 import {
   IsEmail,
+  IsEnum,
   IsNumber,
   IsNumberString,
   IsPositive,
   IsString,
 } from 'class-validator';
+import { NotificationMethod } from '../schemas/user.schema';
 
 export class CreateUserDto {
   @IsString()
@@ -19,16 +20,7 @@ export class CreateUserDto {
   @IsNumber()
   @IsPositive()
   readonly wallet: number;
-}
-
-class Subscription {
   @IsString()
-  fundId: string;
-  @IsNumber()
-  @IsPositive()
-  amount: number;
-}
-
-export class UpdateUserDto extends PartialType(CreateUserDto) {
-  subscriptions: Subscription[];
+  @IsEnum(NotificationMethod)
+  readonly notificationMethod: NotificationMethod;
 }
