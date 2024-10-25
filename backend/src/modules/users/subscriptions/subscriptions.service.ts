@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { SubscribeUserDto } from './dtos/subscription.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Subscription } from './schemas/subscription.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { TransactionsService } from 'src/modules/transactions/transactions.service';
 import { UsersService } from '../users.service';
 import { FundsService } from 'src/modules/funds/funds.service';
@@ -16,7 +16,7 @@ export class SubscriptionsService {
     private readonly usersService: UsersService,
     private readonly fundsService: FundsService,
   ) {}
-  async subscribeToFund(id: string, payload: SubscribeUserDto) {
+  async subscribeToFund(id: Types.ObjectId, payload: SubscribeUserDto) {
     const userWallet = (await this.usersService.getUser(id)).wallet;
 
     if (userWallet < payload.amount) {
@@ -60,5 +60,21 @@ export class SubscriptionsService {
 
   async getUserSubscriptions(id: string) {}
 
-  async unsubscribeFromFund(id: string, fundId: string) {}
+  async unsubscribeFromFund(userId: Types.ObjectId, fundId: Types.ObjectId) {
+    const subscription = await this.subscriptionModel
+      .findOne({ _id: fundId })
+      .exec();
+    if (!subscription) {
+      throw new HttpException(
+        'User is not subscribed to this fund',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const userWallet = (await this.usersService.getUser(userId)).wallet;
+    await this.usersService.updateUser(userId, {
+      wallet: subscription.amount + userWallet,
+    });
+    await this.subscriptionModel.deleteOne({ _id: subscription._id }).exec();
+  }
 }
