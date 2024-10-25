@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 export enum NotificationMethod {
   EMAIL = 'email',
@@ -6,7 +7,7 @@ export enum NotificationMethod {
 }
 
 @Schema()
-export class User {
+export class User extends Document {
   @Prop({ required: true })
   firstName: string;
   @Prop({ required: true })

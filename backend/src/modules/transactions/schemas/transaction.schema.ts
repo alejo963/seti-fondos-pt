@@ -1,4 +1,5 @@
 import { Prop, Schema } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 export enum TransactionType {
   DEPOSIT = 'deposit',
@@ -6,7 +7,7 @@ export enum TransactionType {
 }
 
 @Schema()
-export class Transaction {
+export class Transaction extends Document {
   @Prop({ required: true })
   type: TransactionType;
   @Prop({ required: true })
