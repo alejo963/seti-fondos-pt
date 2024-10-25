@@ -17,7 +17,7 @@ export class UserController {
     }
 
     @Post('/')
-    createUser(@Body() payload: CreateUserDto) {
+    async createUser(@Body() payload: CreateUserDto) {
         return this.userService.createUser(payload)
     }
 }

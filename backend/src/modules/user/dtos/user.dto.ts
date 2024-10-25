@@ -12,7 +12,7 @@ export class CreateUserDto {
     readonly email: string;
     @IsNumber()
     @IsPositive()
-    readonly amount: number;
+    readonly wallet: number;
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}

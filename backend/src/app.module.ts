@@ -3,11 +3,20 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { FundModule } from './modules/fund/fund.module';
-import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { env } from './config/env';
+
+const connection = env.mongoConnection
+const username = env.username
+const password = env.password
+const host = env.mongoHost
+const database = env.database
+
+const mongoConnection = `${connection}://${username}:${password}@${host}`
+console.log(mongoConnection)
 
 @Module({
-  imports: [MongooseModule.forRoot(`mongodb://localhost:27017`),ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }), UserModule, FundModule],
+  imports: [MongooseModule.forRoot(mongoConnection, { dbName: database }), UserModule, FundModule],
   controllers: [AppController],
   providers: [AppService],
 })
