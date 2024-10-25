@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/user.dto';
 import { SubscriptionsService } from './subscriptions/subscriptions.service';
 import { SubscribeUserDto } from './subscriptions/dtos/subscription.dto';
+import { Types } from 'mongoose';
 
 @Controller('users')
 export class UsersController {
@@ -17,7 +18,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  async getUser(@Param('id') id: string) {
+  async getUser(@Param('id') id: Types.ObjectId) {
     return await this.usersService.getUser(id);
   }
 
@@ -28,7 +29,7 @@ export class UsersController {
 
   @Post(':id/subscriptions')
   async subscribeToFund(
-    @Param('id') id: string,
+    @Param('id') id: Types.ObjectId,
     @Body() payload: SubscribeUserDto,
   ) {
     return await this.subscriptionsService.subscribeToFund(id, payload);
@@ -39,11 +40,11 @@ export class UsersController {
     return await this.subscriptionsService.getUserSubscriptions(id);
   }
 
-  @Put(':id/subscriptions/:fundId')
+  @Delete(':id/subscriptions/:subId')
   async unsubscribeFromFund(
-    @Param('id') id: string,
-    @Param('fundId') fundId: string,
+    @Param('id') id: Types.ObjectId,
+    @Param('subId') subId: Types.ObjectId,
   ) {
-    return await this.subscriptionsService.unsubscribeFromFund(id, fundId);
+    return await this.subscriptionsService.unsubscribeFromFund(id,subId);
   }
 }
