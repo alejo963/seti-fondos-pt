@@ -1,23 +1,17 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { FundsService } from './funds.service';
-import { SubscribeDto} from './dtos/subscribe.dto'
 
 @Controller('funds')
 export class FundsController {
-    constructor(private readonly fundsService: FundsService) { }
+  constructor(private readonly fundsService: FundsService) {}
 
-    @Get()
-    getFundss() {
-        return this.fundsService.getFundss()
-    }
+  @Get()
+  getFunds() {
+    return this.fundsService.getFunds();
+  }
 
-    @Post()
-    createFunds() {
-        return this.fundsService.createFunds()
-    }
-
-    @Post('subscribe')
-    subscribe(@Body() payload: SubscribeDto) {
-        return this.fundsService.subscribe(payload)
-    }
+  @Post()
+  createFunds() {
+    return this.fundsService.createFunds();
+  }
 }

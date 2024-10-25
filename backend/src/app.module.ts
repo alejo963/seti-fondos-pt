@@ -7,18 +7,22 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { env } from './config/env';
 import { TransactionsModule } from './modules/transactions/transactions.module';
 
-const connection = env.mongoConnection
-const username = env.username
-const password = env.password
-const host = env.mongoHost
-const database = env.database
+const connection = env.mongoConnection;
+const username = env.username;
+const password = env.password;
+const host = env.mongoHost;
+const database = env.database;
 
-const mongoConnection = `${connection}://${username}:${password}@${host}`
-console.log(mongoConnection)
+const mongoConnection = `${connection}://${username}:${password}@${host}`;
 
 @Module({
-  imports: [MongooseModule.forRoot(mongoConnection, { dbName: database }), UsersModule, FundsModule, TransactionsModule],
+  imports: [
+    MongooseModule.forRoot(mongoConnection, { dbName: database }),
+    UsersModule,
+    FundsModule,
+    TransactionsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

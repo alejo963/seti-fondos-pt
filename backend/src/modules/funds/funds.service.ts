@@ -1,18 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
-
 @Injectable()
 export class FundsService {
+  getFunds() {
+    //TODO: Get list of funds
+  }
 
-    getFundss() {
-        //TODO: Get list of fundss
-    }
+  createFunds() {}
 
-    createFunds() {
-    }
-
-    subscribe(payload) {
-        
-        return { payload }
-    }
+  subscribe(payload) {
+    return { payload };
+  }
 }
