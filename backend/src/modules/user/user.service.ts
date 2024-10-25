@@ -12,7 +12,7 @@ export class UserService {
         console.log(id)
     }
 
-    createUser() {
+    createUser(payload) {
         console.log("USER CREATED")
     }
 }
