@@ -65,7 +65,12 @@ export class SubscriptionsService {
     return createdSubscription.save();
   }
 
-  async getUserSubscriptions(id: string) {}
+  async getUserSubscriptions(id: Types.ObjectId) {
+    return await this.subscriptionModel
+      .find({ user: id })
+      .populate('fund')
+      .exec();
+  }
 
   async unsubscribeFromFund(userId: Types.ObjectId, fundId: Types.ObjectId) {
     const subscription = await this.subscriptionModel

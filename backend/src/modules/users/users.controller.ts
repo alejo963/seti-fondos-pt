@@ -36,7 +36,7 @@ export class UsersController {
   }
 
   @Get(':id/subscriptions')
-  async getUserSubscriptions(@Param('id') id: string) {
+  async getUserSubscriptions(@Param('id') id: Types.ObjectId) {
     return await this.subscriptionsService.getUserSubscriptions(id);
   }
 
@@ -45,6 +45,6 @@ export class UsersController {
     @Param('id') id: Types.ObjectId,
     @Param('subId') subId: Types.ObjectId,
   ) {
-    return await this.subscriptionsService.unsubscribeFromFund(id,subId);
+    return await this.subscriptionsService.unsubscribeFromFund(id, subId);
   }
 }
