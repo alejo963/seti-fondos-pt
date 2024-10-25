@@ -7,6 +7,7 @@ import {
   IsString,
 } from 'class-validator';
 import { NotificationMethod } from '../schemas/user.schema';
+import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateUserDto {
   @IsString()
@@ -24,3 +25,5 @@ export class CreateUserDto {
   @IsEnum(NotificationMethod)
   readonly notificationMethod: NotificationMethod;
 }
+
+export class UpdateUserDto extends PartialType(CreateUserDto) {}

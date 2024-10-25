@@ -7,16 +7,18 @@ import { Model } from 'mongoose';
 @Injectable()
 export class FundsService {
   constructor(
-    @InjectModel(Fund.name) private readonly fundModel: Model<Fund>,
+    @InjectModel(Fund.name) private readonly fundsModel: Model<Fund>,
   ) {}
   getFunds() {
     //TODO: Get list of funds
   }
 
-  getFundById(id: string) {}
+  getFundById(id: string) {
+    return this.fundsModel.findById(id).exec();
+  }
 
   createFund(payload: CreateFundDto) {
-    const createdFund = new this.fundModel(payload);
+    const createdFund = new this.fundsModel(payload);
     return createdFund.save();
   }
 }

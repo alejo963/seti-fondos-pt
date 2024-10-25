@@ -1,8 +1,9 @@
-import { IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsMongoId, IsNumber, IsPositive, IsString } from 'class-validator';
 
 export class SubscribeUserDto {
   @IsString()
-  fundId: string;
+  @IsMongoId()
+  fund: string;
   @IsNumber()
   @IsPositive()
   amount: number;

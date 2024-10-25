@@ -10,5 +10,6 @@ import { Fund, FundSchema } from './schemas/funds.schema';
   ],
   controllers: [FundsController],
   providers: [FundsService],
+  exports: [FundsService],
 })
 export class FundsModule {}
