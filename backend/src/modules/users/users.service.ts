@@ -5,19 +5,18 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from './dtos/user.dto';
 
 @Injectable()
-export class UserService {
+export class UsersService {
     constructor(@InjectModel(User.name) private readonly userModel: Model<User>) { }
 
-    getUsers() {
-        //TODO: Get users from mongoDB
-        console.log("GET USERS FUNCTION")
+    async getAllUsers(): Promise<User[]> {
+        return this.userModel.find().exec();
     }
 
-    getUser(id: string) {
-        console.log(id)
+    async getUser(id: string): Promise<User> {
+        return this.userModel.findById(id).exec();
     }
 
-    async createUser(payload: CreateUserDto) {
+    async createUser(payload: CreateUserDto): Promise<User> {
         const createdUser = new this.userModel(payload);
         return createdUser.save();
     }

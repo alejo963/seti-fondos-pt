@@ -4,7 +4,7 @@ export class SubscribeDto {
 
     @IsString()
     @IsNotEmpty()
-    readonly fundId: string;
+    readonly fundsId: string;
 
     @IsNumber()
     @IsPositive()
