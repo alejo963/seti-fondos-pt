@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTransactionDto } from './dtos/transaction.dto';
-import { Transaction } from './schemas/transaction.schema';
-import { Model } from 'mongoose';
+import {
+  CreateTransactionDto,
+  FilterTransactionsDto,
+} from './dtos/transaction.dto';
+import { Transaction, TransactionType } from './schemas/transaction.schema';
+import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
@@ -10,6 +13,15 @@ export class TransactionsService {
     @InjectModel(Transaction.name)
     private readonly transactionModel: Model<Transaction>,
   ) {}
+
+  async getTransactions(params: FilterTransactionsDto) {
+    const { limit, offset } = params || {
+      limit: 10,
+      offset: 0,
+    };
+
+    return this.transactionModel.find().skip(offset).limit(limit).exec();
+  }
   async createTransaction(payload: CreateTransactionDto) {
     const createdTransaction = new this.transactionModel({
       ...payload,
