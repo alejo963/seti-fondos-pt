@@ -65,7 +65,7 @@ export class SubscriptionsService {
       ...payload,
     }).save();
 
-    await this.notificationsService.sendNotification(updatedUser, fundName);
+    this.notificationsService.sendNotification(updatedUser, fundName);
     return createdSubscription;
   }
 

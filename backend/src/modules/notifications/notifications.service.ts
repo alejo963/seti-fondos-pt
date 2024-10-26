@@ -1,19 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { env } from '../../config/env';
 import { NotificationMethod, User } from '../users/schemas/user.schema';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class NotificationsService {
+  constructor(private readonly mailerService: MailerService) {}
   async sendNotification(user: User, fundName: string) {
     if (user.notificationMethod === NotificationMethod.EMAIL) {
-      return await this.sendNoticationbyEmail(user, fundName);
+      return await this.sendEmail(user, fundName);
     }
-    return await this.sendNotificationBySms(user, fundName);
+    return await this.sendSms(user, fundName);
   }
 
-  async sendNoticationbyEmail(user: User, fundName: string) {}
+  async sendEmail(user: User, fundName: string) {
+    const message = `Hola ${user.firstName} ${user.lastName}! \nTe has subscrito al fondo ${fundName}`;
 
-  async sendNotificationBySms(user: User, fundName: string) {
+    this.mailerService.sendMail({
+      from: 'avelaquez@cidenet.com.co',
+      to: user.email,
+      subject: 'Nueva subscripción',
+      text: message,
+    });
+  }
+
+  async sendSms(user: User, fundName: string) {
     if (user.notificationMethod === NotificationMethod.SMS) {
       return await this.createSendSmsCommand(user.phoneNumber, fundName);
     }
