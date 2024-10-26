@@ -10,6 +10,7 @@ import {
 } from './subscriptions/schemas/subscription.schema';
 import { TransactionsModule } from '../transactions/transactions.module';
 import { FundsModule } from '../funds/funds.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { FundsModule } from '../funds/funds.module';
     ]),
     TransactionsModule,
     FundsModule,
+    NotificationsModule,
   ],
   controllers: [UsersController],
   providers: [UsersService, SubscriptionsService],

@@ -15,7 +15,7 @@ export class TransactionsService {
     private readonly transactionModel: Model<Transaction>,
   ) {}
 
-  async getTransactions(params: FilterTransactionsDto) {
+  async getTransactions(params: FilterTransactionsDto): Promise<Transaction[]> {
     const { limit, offset } = params || {
       limit: 10,
       offset: 0,
@@ -29,7 +29,7 @@ export class TransactionsService {
       .sort({ createdAt: order })
       .exec();
   }
-  async createTransaction(payload: CreateTransactionDto) {
+  async createTransaction(payload: CreateTransactionDto): Promise<Transaction> {
     const createdTransaction = new this.transactionModel({
       ...payload,
       createdAt: new Date(),

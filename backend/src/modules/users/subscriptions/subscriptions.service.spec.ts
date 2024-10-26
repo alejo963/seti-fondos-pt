@@ -9,6 +9,7 @@ import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { FundsService } from '../../funds/funds.service';
 import { userModelMockProvider } from '../../../../test/mocks/users.service';
 import { UsersService } from '../users.service';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 describe('SubscriptionsService', () => {
   let service: SubscriptionsService;
@@ -16,6 +17,7 @@ describe('SubscriptionsService', () => {
   let usersService: DeepMocked<UsersService>;
   let transactionsService: DeepMocked<TransactionsService>;
   let fundsService: DeepMocked<FundsService>;
+  let notificationsService: DeepMocked<NotificationsService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -34,6 +36,10 @@ describe('SubscriptionsService', () => {
           provide: FundsService,
           useValue: createMock<FundsService>(),
         },
+        {
+          provide: NotificationsService,
+          useValue: createMock<NotificationsService>(),
+        },
       ],
     }).compile();
 
@@ -45,6 +51,8 @@ describe('SubscriptionsService', () => {
     transactionsService =
       module.get<DeepMocked<TransactionsService>>(TransactionsService);
     fundsService = module.get<DeepMocked<FundsService>>(FundsService);
+    notificationsService =
+      module.get<DeepMocked<NotificationsService>>(NotificationsService);
   });
 
   it('should be defined', () => {

@@ -7,6 +7,7 @@ import { TransactionsService } from '../../transactions/transactions.service';
 import { UsersService } from '../users.service';
 import { FundsService } from '../../funds/funds.service';
 import { TransactionType } from '../../transactions/schemas/transaction.schema';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 @Injectable()
 export class SubscriptionsService {
@@ -16,6 +17,7 @@ export class SubscriptionsService {
     private readonly transactionsService: TransactionsService,
     private readonly usersService: UsersService,
     private readonly fundsService: FundsService,
+    private readonly notificationsService: NotificationsService,
   ) {}
   async subscribeToFund(id: Types.ObjectId, payload: SubscribeUserDto) {
     const userWallet = (await this.usersService.getUser(id)).wallet;
@@ -27,9 +29,9 @@ export class SubscriptionsService {
       );
     }
 
-    const minSubAmount = (await this.fundsService.getFundById(payload.fund))
-      .minSubscriptionAmount;
-    if (payload.amount < minSubAmount) {
+    const { minSubscriptionAmount, fundName } =
+      await this.fundsService.getFundById(payload.fund);
+    if (payload.amount < minSubscriptionAmount) {
       throw new HttpException(
         'Amount is less than min required amount',
         HttpStatus.BAD_REQUEST,
@@ -54,18 +56,20 @@ export class SubscriptionsService {
       fund: payload.fund,
     });
 
-    await this.usersService.updateUser(id, {
+    const updatedUser = await this.usersService.updateUser(id, {
       wallet: userWallet - payload.amount,
     });
 
     const createdSubscription = new this.subscriptionModel({
       user: id,
       ...payload,
-    });
-    return createdSubscription.save();
+    }).save();
+
+    await this.notificationsService.sendNotification(updatedUser, fundName);
+    return createdSubscription;
   }
 
-  async getUserSubscriptions(id: Types.ObjectId) {
+  async getUserSubscriptions(id: Types.ObjectId): Promise<Subscription[]> {
     return await this.subscriptionModel
       .find({ user: id })
       .populate('fund')
@@ -94,6 +98,8 @@ export class SubscriptionsService {
     await this.usersService.updateUser(userId, {
       wallet: subscription.amount + userWallet,
     });
-    await this.subscriptionModel.deleteOne({ _id: subscription._id }).exec();
+    return await this.subscriptionModel
+      .deleteOne({ _id: subscription._id })
+      .exec();
   }
 }

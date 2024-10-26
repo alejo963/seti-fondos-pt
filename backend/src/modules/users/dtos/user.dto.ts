@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsNumber,
   IsNumberString,
+  IsPhoneNumber,
   IsPositive,
   IsString,
 } from 'class-validator';
@@ -18,6 +19,8 @@ export class CreateUserDto {
   readonly nationalId: string;
   @IsEmail()
   readonly email: string;
+  @IsPhoneNumber('CO')
+  readonly phoneNumber: string;
   @IsNumber()
   @IsPositive()
   readonly wallet: number;

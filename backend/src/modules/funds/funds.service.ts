@@ -13,11 +13,11 @@ export class FundsService {
     //TODO: Get list of funds
   }
 
-  getFundById(id: Types.ObjectId) {
+  getFundById(id: Types.ObjectId): Promise<Fund> {
     return this.fundsModel.findById(id).exec();
   }
 
-  createFund(payload: CreateFundDto) {
+  createFund(payload: CreateFundDto): Promise<Fund> {
     const createdFund = new this.fundsModel(payload);
     return createdFund.save();
   }
