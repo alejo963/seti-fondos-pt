@@ -16,7 +16,7 @@ export class NotificationsService {
     const message = `Hola ${user.firstName} ${user.lastName}! \nTe has subscrito al fondo ${fundName}`;
 
     this.mailerService.sendMail({
-      from: 'avelaquez@cidenet.com.co',
+      from: 'avelasquez@cidenet.com.co',
       to: user.email,
       subject: 'Nueva subscripción',
       text: message,

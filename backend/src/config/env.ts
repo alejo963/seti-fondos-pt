@@ -14,8 +14,6 @@ export const env = {
   awsRegion: process.env.AWS_REGION || 'us-east-2',
   awsS3Bucket: process.env.AWS_S3_BUCKET || '',
 
-  emailHost: process.env.EMAIL_HOST || 'email-smtp.us-east-2.amazonaws.com',
-  emailPort: parseInt(process.env.EMAIL_PORT, 10) || 465,
-//   emailUser: process.env.EMAIL_USER || '6f8c186926b2d1',
-//   emailPassword: process.env.EMAIL_PASSWORD || '28e65ec5f31735',
+  emailUser: process.env.EMAIL_USER || 'avelasquez@cidenet.com.co',
+  emailPassword: process.env.EMAIL_PASSWORD || 'xcsa xenb avzz dvip',
 };

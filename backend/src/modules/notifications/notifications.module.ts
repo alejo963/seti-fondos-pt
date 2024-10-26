@@ -7,12 +7,10 @@ import { env } from '../../config/env';
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: env.emailHost,
-        port: env.emailPort,
-        secure: true,
+        service: 'gmail',
         auth: {
-          user: env.awsAccessKeyId,
-          pass: env.awsSecretAccessKey,
+          user: env.emailUser,
+          pass: env.emailPassword,
         },
       },
     }),
