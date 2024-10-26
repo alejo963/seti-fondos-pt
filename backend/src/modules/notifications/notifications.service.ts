@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
-import { env } from 'src/config/env';
+import { env } from '../../config/env';
 
 @Injectable()
 export class NotificationsService {

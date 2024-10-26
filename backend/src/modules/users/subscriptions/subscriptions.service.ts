@@ -3,10 +3,10 @@ import { SubscribeUserDto } from './dtos/subscription.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Subscription } from './schemas/subscription.schema';
 import { Model, Types } from 'mongoose';
-import { TransactionsService } from 'src/modules/transactions/transactions.service';
+import { TransactionsService } from '../../transactions/transactions.service';
 import { UsersService } from '../users.service';
-import { FundsService } from 'src/modules/funds/funds.service';
-import { TransactionType } from 'src/modules/transactions/schemas/transaction.schema';
+import { FundsService } from '../../funds/funds.service';
+import { TransactionType } from '../../transactions/schemas/transaction.schema';
 
 @Injectable()
 export class SubscriptionsService {

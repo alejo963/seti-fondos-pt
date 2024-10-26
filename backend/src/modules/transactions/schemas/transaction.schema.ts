@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { Fund } from 'src/modules/funds/schemas/funds.schema';
-import { User } from 'src/modules/users/schemas/user.schema';
+import { Fund } from '../../funds/schemas/funds.schema';
+import { User } from '../../users/schemas/user.schema';
 
 export enum TransactionType {
   DEPOSIT = 'deposit',

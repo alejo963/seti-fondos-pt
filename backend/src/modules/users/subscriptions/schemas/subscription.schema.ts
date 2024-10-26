@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { User } from '../../schemas/user.schema';
 import { Document, Types } from 'mongoose';
-import { Fund } from 'src/modules/funds/schemas/funds.schema';
+import { Fund } from '../../../funds/schemas/funds.schema';
 
 @Schema()
 export class Subscription extends Document {
