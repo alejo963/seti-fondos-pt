@@ -60,6 +60,10 @@ describe('SubscriptionsService', () => {
       module.get<DeepMocked<NotificationsService>>(NotificationsService);
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
@@ -156,7 +160,7 @@ describe('SubscriptionsService', () => {
     );
 
     await expect(service.subscribeToFund(stubMongoId, payload)).rejects.toThrow(
-       'User is already subscribed to this fund',
+      'User is already subscribed to this fund',
     );
   });
 
