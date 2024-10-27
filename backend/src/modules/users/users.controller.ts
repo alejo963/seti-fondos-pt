@@ -12,11 +12,6 @@ export class UsersController {
     private readonly subscriptionsService: SubscriptionsService,
   ) {}
 
-  @Get()
-  getUsers() {
-    return this.usersService.getAllUsers();
-  }
-
   @Get(':id')
   async getUser(@Param('id') id: Types.ObjectId) {
     return await this.usersService.getUser(id);

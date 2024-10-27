@@ -10,10 +10,6 @@ export class UsersService {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
-  async getAllUsers(): Promise<User[]> {
-    return this.userModel.find().exec();
-  }
-
   async getUser(id: Types.ObjectId): Promise<User> {
     return this.userModel.findById(id).exec();
   }
@@ -30,11 +26,11 @@ export class UsersService {
       );
     }
 
-    const createdUser = new this.userModel(payload);
-    return createdUser.save();
+    const createdUser: User = await this.userModel.create(payload);
+    return createdUser;
   }
 
   async updateUser(id: Types.ObjectId, payload: UpdateUserDto): Promise<User> {
-    return this.userModel.findByIdAndUpdate(id, payload, { new: true });
+    return this.userModel.findByIdAndUpdate(id, payload, { new: true }).exec();
   }
 }

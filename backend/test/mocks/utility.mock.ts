@@ -7,6 +7,8 @@ export const createMockModelProvider = (modelName: string, mockFunction) => {
       new: jest.fn().mockResolvedValue(mockFunction()),
       constructor: jest.fn().mockResolvedValue(mockFunction()),
       find: jest.fn(),
+      findById: jest.fn(),
+      findByIdAndUpdate: jest.fn(),
       findOne: jest.fn(),
       update: jest.fn(),
       create: jest.fn(),
