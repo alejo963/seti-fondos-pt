@@ -30,11 +30,11 @@ export class CreateTransactionDto {
 export class FilterTransactionsDto {
   @IsOptional()
   @IsPositive()
-  limit: number;
+  limit?: number;
   @IsPositive()
   @IsOptional()
   @Min(0)
-  offset: number;
+  offset?: number;
   @IsOptional()
   @IsMongoId()
   user?: Types.ObjectId;

@@ -30,10 +30,10 @@ export class TransactionsService {
       .exec();
   }
   async createTransaction(payload: CreateTransactionDto): Promise<Transaction> {
-    const createdTransaction = new this.transactionModel({
+    const createdTransaction = await this.transactionModel.create({
       ...payload,
       createdAt: new Date(),
     });
-    return createdTransaction.save();
+    return createdTransaction;
   }
 }
