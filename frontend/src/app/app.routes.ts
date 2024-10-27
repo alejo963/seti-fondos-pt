@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-import { BlankComponent } from './layouts/blank/blank.component';
-import { FullComponent } from './layouts/full/full.component';
+import { FullComponent } from './layouts/full.component';
 
 export const routes: Routes = [
   {
@@ -24,28 +23,6 @@ export const routes: Routes = [
             (m) => m.UiComponentsRoutes
           ),
       },
-      {
-        path: 'extra',
-        loadChildren: () =>
-          import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
-      },
     ],
-  },
-  {
-    path: '',
-    component: BlankComponent,
-    children: [
-      {
-        path: 'authentication',
-        loadChildren: () =>
-          import('./pages/authentication/authentication.routes').then(
-            (m) => m.AuthenticationRoutes
-          ),
-      },
-    ],
-  },
-  {
-    path: '**',
-    redirectTo: 'authentication/error',
   },
 ];

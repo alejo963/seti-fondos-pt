@@ -40,8 +40,8 @@ export interface Vegetable {
 @Component({
   selector: 'app-chips',
   standalone: true,
-  templateUrl: './chips.component.html',
-  styleUrls: ['./chips.component.scss'],
+  templateUrl: './transactions.component.html',
+  styleUrls: ['./transactions.component.scss'],
   imports: [
     MatFormFieldModule,
     MatChipsModule,
@@ -55,7 +55,7 @@ export interface Vegetable {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppChipsComponent {
+export class AppTransactionsComponent {
   // drag n drop
   readonly vegetables = signal<Vegetable[]>([
     { name: 'apple' },
