@@ -2,7 +2,9 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { FundsService } from './funds.service';
 import { CreateFundDto } from './dtos/fund.dto';
 import { Types } from 'mongoose';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('funds')
 @Controller('funds')
 export class FundsController {
   constructor(private readonly fundsService: FundsService) {}

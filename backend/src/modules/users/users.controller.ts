@@ -4,7 +4,9 @@ import { CreateUserDto } from './dtos/user.dto';
 import { SubscriptionsService } from './subscriptions/subscriptions.service';
 import { SubscribeUserDto } from './subscriptions/dtos/subscription.dto';
 import { Types } from 'mongoose';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(

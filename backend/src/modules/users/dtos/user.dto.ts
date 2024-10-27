@@ -8,7 +8,7 @@ import {
   IsString,
 } from 'class-validator';
 import { NotificationMethod } from '../schemas/user.schema';
-import { PartialType } from '@nestjs/mapped-types';
+import { PartialType } from '@nestjs/swagger';
 
 export class CreateUserDto {
   @IsString()
