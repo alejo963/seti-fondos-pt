@@ -9,16 +9,16 @@ export class FundsService {
   constructor(
     @InjectModel(Fund.name) private readonly fundsModel: Model<Fund>,
   ) {}
-  getFunds() {
-    //TODO: Get list of funds
+  async getFunds() {
+    return await this.fundsModel.find().exec();
   }
 
-  getFundById(id: Types.ObjectId): Promise<Fund> {
-    return this.fundsModel.findById(id).exec();
+  async getFundById(id: Types.ObjectId): Promise<Fund> {
+    return await this.fundsModel.findById(id).exec();
   }
 
-  createFund(payload: CreateFundDto): Promise<Fund> {
-    const createdFund = new this.fundsModel(payload);
-    return createdFund.save();
+  async createFund(payload: CreateFundDto): Promise<Fund> {
+    const createdFund = await this.fundsModel.create(payload);
+    return createdFund;
   }
 }

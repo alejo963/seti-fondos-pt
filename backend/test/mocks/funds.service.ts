@@ -1,11 +1,11 @@
 import { Fund } from '../../src/modules/funds/schemas/funds.schema';
-import { createMockModelProvider } from './utility.mock';
+import { createMockModelProvider, stubMongoId } from './utility.mock';
 
 export const mockFund = (
-  _id = '1234567890',
   fundName = 'Mock Fund',
   category = 'Mock Category',
   minSubscriptionAmount = 100,
+  _id = stubMongoId,
 ) => ({ _id, fundName, category, minSubscriptionAmount });
 
 export const fundModelMockProvider = createMockModelProvider(

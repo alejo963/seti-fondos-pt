@@ -11,7 +11,7 @@ export class UsersService {
   ) {}
 
   async getUser(id: Types.ObjectId): Promise<User> {
-    return this.userModel.findById(id).exec();
+    return await this.userModel.findById(id).exec();
   }
 
   async createUser(payload: CreateUserDto): Promise<User> {
@@ -31,6 +31,8 @@ export class UsersService {
   }
 
   async updateUser(id: Types.ObjectId, payload: UpdateUserDto): Promise<User> {
-    return this.userModel.findByIdAndUpdate(id, payload, { new: true }).exec();
+    return await this.userModel
+      .findByIdAndUpdate(id, payload, { new: true })
+      .exec();
   }
 }

@@ -22,6 +22,7 @@ describe('UsersService', () => {
     service = module.get<UsersService>(UsersService);
     model = module.get<Model<User>>(getModelToken(User.name));
   });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -91,7 +92,7 @@ describe('UsersService', () => {
     await expect(service.createUser(userDto)).rejects.toThrow(
       'User with nationalId 123456789 already exists',
     );
-  })
+  });
 
   it('should update user', async () => {
     const updatedUser = mockUser('Oliver');

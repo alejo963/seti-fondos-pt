@@ -1,4 +1,5 @@
 import { getModelToken } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
 
 export const createMockModelProvider = (modelName: string, mockFunction) => {
   const provider = {
@@ -18,3 +19,5 @@ export const createMockModelProvider = (modelName: string, mockFunction) => {
   };
   return provider;
 };
+
+export const stubMongoId = new Types.ObjectId('671d30ff2d178e227a88e463');
