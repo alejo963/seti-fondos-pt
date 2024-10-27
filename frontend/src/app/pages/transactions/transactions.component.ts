@@ -38,7 +38,7 @@ export interface Vegetable {
 }
 
 @Component({
-  selector: 'app-chips',
+  selector: 'app-transactions',
   standalone: true,
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss'],
@@ -55,7 +55,7 @@ export interface Vegetable {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TransactionsComponent {
+export class AppTransactionsComponent {
   // drag n drop
   readonly vegetables = signal<Vegetable[]>([
     { name: 'apple' },

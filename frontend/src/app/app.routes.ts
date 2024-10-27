@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { FullComponent } from './layouts/full.component';
-import { StarterComponent } from './pages/starter/starter.component';
-import { SubscriptionsComponent } from './pages/subscriptions/subscriptions.component';
-import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { AppSubscriptionsComponent } from './pages/subscriptions/subscriptions.component';
+import { AppTransactionsComponent } from './pages/transactions/transactions.component';
+import { AppFundsComponent } from './pages/funds/funds.component';
 
 export const routes: Routes = [
   {
@@ -16,16 +16,16 @@ export const routes: Routes = [
       },
       {
         path: 'fondos',
-        component: StarterComponent,
+        component: AppFundsComponent,
       },
       {
         path: 'suscripciones',
-        component: SubscriptionsComponent,
+        component: AppSubscriptionsComponent,
       },
       {
         path: 'transacciones',
-        component: TransactionsComponent,
-      }
+        component: AppTransactionsComponent,
+      },
     ],
   },
 ];

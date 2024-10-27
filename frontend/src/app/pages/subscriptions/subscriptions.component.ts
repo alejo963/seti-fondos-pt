@@ -5,12 +5,12 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  selector: 'app-badge',
+  selector: 'app-subscriptions',
   templateUrl: './subscriptions.component.html',
   standalone: true,
   imports: [MatBadgeModule, MatButtonModule, MatIconModule, MatCardModule],
 })
-export class SubscriptionsComponent implements OnInit {
+export class AppSubscriptionsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}

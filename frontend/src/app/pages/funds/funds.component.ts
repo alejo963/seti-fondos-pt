@@ -31,12 +31,12 @@ interface month {
 }
 
 @Component({
-  selector: 'app-revenue-forecast',
+  selector: 'app-funds',
   standalone: true,
   imports: [MaterialModule, TablerIconsModule, NgApexchartsModule],
-  templateUrl: './revenue-forecast.component.html',
+  templateUrl: './funds.component.html',
 })
-export class AppRevenueForecastComponent {
+export class AppFundsComponent {
   @ViewChild('chart') chart: ChartComponent = Object.create(null);
   public revenueForecastChart!: Partial<revenueForecastChart> | any;
 
