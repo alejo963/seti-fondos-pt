@@ -4,7 +4,7 @@ import { createMockModelProvider, stubMongoId } from './utility.mock';
 export const mockFund = (
   fundName = 'Mock Fund',
   category = 'Mock Category',
-  minSubscriptionAmount = 100,
+  minSubscriptionAmount = 100000,
   _id = stubMongoId,
 ) => ({ _id, fundName, category, minSubscriptionAmount });
 

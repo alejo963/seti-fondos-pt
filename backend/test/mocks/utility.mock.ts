@@ -14,6 +14,7 @@ export const createMockModelProvider = (modelName: string, mockFunction) => {
       update: jest.fn(),
       create: jest.fn(),
       remove: jest.fn(),
+      deleteOne: jest.fn(),
       exec: jest.fn(),
     },
   };

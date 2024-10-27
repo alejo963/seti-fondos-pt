@@ -60,10 +60,10 @@ export class SubscriptionsService {
       wallet: userWallet - payload.amount,
     });
 
-    const createdSubscription = new this.subscriptionModel({
+    const createdSubscription = await this.subscriptionModel.create({
       user: id,
       ...payload,
-    }).save();
+    });
 
     this.notificationsService.sendNotification(updatedUser, fundName);
     return createdSubscription;
@@ -76,15 +76,10 @@ export class SubscriptionsService {
       .exec();
   }
 
-  async unsubscribeFromFund(userId: Types.ObjectId, fundId: Types.ObjectId) {
-    const subscription = await this.subscriptionModel
-      .findOne({ _id: fundId })
-      .exec();
+  async unsubscribeFromFund(userId: Types.ObjectId, subId: Types.ObjectId) {
+    const subscription = await this.subscriptionModel.findById(subId).exec();
     if (!subscription) {
-      throw new HttpException(
-        'User is not subscribed to this fund',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException('Subscription not found', HttpStatus.NOT_FOUND);
     }
 
     const transaction = await this.transactionsService.createTransaction({
