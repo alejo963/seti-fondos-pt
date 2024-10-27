@@ -8,12 +8,13 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './modules/database/database.module';
 import config from './config/config';
+import { environments } from './environments';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [config],
-      envFilePath: '.env',
+      envFilePath: environments[process.env.NODE_ENV] || '.env',
       isGlobal: true,
     }),
     UsersModule,

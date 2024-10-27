@@ -6,3 +6,16 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: root
     ports:
       - 27017:27017
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    environment:
+      NODE_ENV: prod
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+    volumes:
+      - ./src:/app/src
