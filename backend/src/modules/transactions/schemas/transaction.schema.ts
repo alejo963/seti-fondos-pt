@@ -4,8 +4,8 @@ import { Fund } from '../../funds/schemas/funds.schema';
 import { User } from '../../users/schemas/user.schema';
 
 export enum TransactionType {
-  DEPOSIT = 'deposit',
-  WITHDRAW = 'withdraw',
+  DEPOSIT = 'Deposito',
+  WITHDRAW = 'Retiro',
 }
 
 @Schema({
