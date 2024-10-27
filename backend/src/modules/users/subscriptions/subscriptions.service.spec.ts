@@ -24,7 +24,6 @@ describe('SubscriptionsService', () => {
   let usersService: DeepMocked<UsersService>;
   let transactionsService: DeepMocked<TransactionsService>;
   let fundsService: DeepMocked<FundsService>;
-  let notificationsService: DeepMocked<NotificationsService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -56,8 +55,6 @@ describe('SubscriptionsService', () => {
     transactionsService =
       module.get<DeepMocked<TransactionsService>>(TransactionsService);
     fundsService = module.get<DeepMocked<FundsService>>(FundsService);
-    notificationsService =
-      module.get<DeepMocked<NotificationsService>>(NotificationsService);
   });
 
   afterEach(() => {
