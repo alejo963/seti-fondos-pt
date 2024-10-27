@@ -1,10 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { NotificationMethod, User } from '../users/schemas/user.schema';
 import { MailerService } from '@nestjs-modules/mailer';
+import { PublishCommand, SNSClient } from '@aws-sdk/client-sns';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class NotificationsService {
-  constructor(private readonly mailerService: MailerService) {}
+  snsClient: SNSClient;
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly mailerService: MailerService,
+  ) {
+    this.snsClient = new SNSClient({
+      region: this.configService.get('AWS_REGION'),
+      credentials: {
+        accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID'),
+        secretAccessKey: this.configService.get('AWS_SECRET_ACCESS_KEY'),
+      },
+    });
+  }
   async sendNotification(user: User, fundName: string) {
     if (user.notificationMethod === NotificationMethod.EMAIL) {
       return await this.sendEmail(user, fundName);
@@ -24,21 +38,12 @@ export class NotificationsService {
   }
 
   async sendSms(user: User, fundName: string) {
-    if (user.notificationMethod === NotificationMethod.SMS) {
-      return await this.createSendSmsCommand(user.phoneNumber, fundName);
-    }
-  }
-
-  async createSendSmsCommand(phoneNumber: string, fundName: string) {
-    // return new SendSmsCommand({
-    //   Destination: {
-    //     PhoneNumber: phoneNumber,
-    //   },
-    //   Message: {
-    //     Charset: 'UTF-8',
-    //     Data: 'TEXT_FORMAT_BODY',
-    //   },
-    //   Source: 'fromAddress@gmail.com',
-    // });
+    const message = `Hola ${user.firstName} ${user.lastName}! Te has subscrito al fondo ${fundName}`;
+    const params = {
+      Message: message,
+      PhoneNumber: user.phoneNumber,
+    };
+    const command = new PublishCommand(params);
+    await this.snsClient.send(command);
   }
 }
