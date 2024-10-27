@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MaterialModule } from '../../material.module';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import {
@@ -13,6 +13,7 @@ import {
   NgApexchartsModule,
   ApexFill,
 } from 'ng-apexcharts';
+import { FundsService } from '../../shared/services/funds.service';
 
 export interface revenueForecastChart {
   series: ApexAxisChartSeries;
@@ -37,6 +38,12 @@ interface month {
   templateUrl: './funds.component.html',
 })
 export class AppFundsComponent {
+  private fundsService = inject(FundsService);
+
+  ngOnInit() {
+    this.fundsService.getFunds().subscribe((funds) => console.log(funds));
+  }
+
   @ViewChild('chart') chart: ChartComponent = Object.create(null);
   public revenueForecastChart!: Partial<revenueForecastChart> | any;
 

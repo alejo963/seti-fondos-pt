@@ -38,7 +38,7 @@ export const appConfig: ApplicationConfig = {
       }),
       withComponentInputBinding()
     ),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(),
     provideClientHydration(),
     provideAnimationsAsync(),
 
