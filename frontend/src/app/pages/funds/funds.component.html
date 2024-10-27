@@ -1,39 +1,26 @@
-<mat-card class="cardWithShadow">
-    <mat-card-content>
-      <div class="hstack align-items-center flex-column flex-lg-row">
-        <div class="w-100">
-          <mat-card-title>Revenue Forecast</mat-card-title>
-        </div>
-        <div class="m-l-auto">
-            <mat-form-field class="theme-select" appearance="outline">
-                <mat-select value="mar">
-                  @for(month of months; track month.viewValue ) {
-                  <mat-option [value]="month.value">
-                    {{ month.viewValue }}
-                  </mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
-        </div>
-      </div>
-  
-      <!-- chart -->
-      <div class="m-t-16" style="height: 295px">
-        <apx-chart
-          [series]="revenueForecastChart.series"
-          [chart]="revenueForecastChart.chart"
-          [colors]="revenueForecastChart.colors"
-          [plotOptions]="revenueForecastChart.plotOptions"
-          [dataLabels]="revenueForecastChart.dataLabels"
-          [legend]="revenueForecastChart.legend"
-          [grid]="revenueForecastChart.grid"
-          [yaxis]="revenueForecastChart.yaxis"
-          [xaxis]="revenueForecastChart.xaxis"
-          [tooltip]="revenueForecastChart.tooltip"
-        ></apx-chart>
-      </div>
-  
-     
-    </mat-card-content>
-  </mat-card>
-  
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Fondos de Inversión</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    @for(fund of funds(); track fund._id; let i = $index) {
+    <mat-card class="b-1 shadow-none">
+      <mat-card-header>
+        <mat-card-title>{{fund.fundName}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="b-t-1">
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle class="f-s-16 f-w-600">Categoría</span>
+            <span matListItemLine class="mat-body-1">{{fund.category}}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle class="f-s-16 f-w-600">Monto mínimo para subscripción</span>
+            <span matListItemLine class="mat-body-1">${{fund.minSubscriptionAmount}}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+    }
+  </mat-card-content>
+</mat-card>

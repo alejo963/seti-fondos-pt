@@ -9,6 +9,6 @@ export class FundsService {
   constructor(private http: HttpClient) {}
 
   getFunds() {
-    return this.http.get<Fund[]>('localhost:3000/funds');
+    return this.http.get<Fund[]>('http://localhost:3000/funds');
   }
 }

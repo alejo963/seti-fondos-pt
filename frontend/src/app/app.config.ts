@@ -3,11 +3,7 @@ import {
   provideZoneChangeDetection,
   importProvidersFrom,
 } from '@angular/core';
-import {
-  HttpClient,
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 import {
   provideRouter,
@@ -15,7 +11,6 @@ import {
   withInMemoryScrolling,
 } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideClientHydration } from '@angular/platform-browser';
 
 // icons
 import { TablerIconsModule } from 'angular-tabler-icons';
@@ -39,7 +34,6 @@ export const appConfig: ApplicationConfig = {
       withComponentInputBinding()
     ),
     provideHttpClient(),
-    provideClientHydration(),
     provideAnimationsAsync(),
 
     importProvidersFrom(
@@ -47,7 +41,7 @@ export const appConfig: ApplicationConfig = {
       ReactiveFormsModule,
       MaterialModule,
       TablerIconsModule.pick(TablerIcons),
-      NgScrollbarModule,
+      NgScrollbarModule
     ),
   ],
 };
