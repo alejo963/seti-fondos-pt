@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 import { FullComponent } from './layouts/full.component';
+import { StarterComponent } from './pages/starter/starter.component';
+import { SubscriptionsComponent } from './pages/subscriptions/subscriptions.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
 
 export const routes: Routes = [
   {
@@ -13,16 +16,16 @@ export const routes: Routes = [
       },
       {
         path: 'fondos',
-        loadChildren: () =>
-          import('./pages/pages.routes').then((m) => m.PagesRoutes),
+        component: StarterComponent,
       },
       {
-        path: 'componentes',
-        loadChildren: () =>
-          import('./pages/ui-components/ui-components.routes').then(
-            (m) => m.UiComponentsRoutes
-          ),
+        path: 'suscripciones',
+        component: SubscriptionsComponent,
       },
+      {
+        path: 'transacciones',
+        component: TransactionsComponent,
+      }
     ],
   },
 ];

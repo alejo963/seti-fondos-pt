@@ -55,7 +55,7 @@ export interface Vegetable {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppTransactionsComponent {
+export class TransactionsComponent {
   // drag n drop
   readonly vegetables = signal<Vegetable[]>([
     { name: 'apple' },

@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
   standalone: true,
   imports: [MatBadgeModule, MatButtonModule, MatIconModule, MatCardModule],
 })
-export class AppSubscriptionsComponent implements OnInit {
+export class SubscriptionsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}

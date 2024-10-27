@@ -9,11 +9,11 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Suscripciones',
     iconName: 'solar:archive-minimalistic-line-duotone',
-    route: '/componentes/suscripciones',
+    route: '/suscripciones',
   },
   {
     displayName: 'Transacciones',
     iconName: 'solar:transfer-horizontal-line-duotone',
-    route: '/componentes/transacciones',
+    route: '/transacciones',
   },
 ];
