@@ -21,16 +21,16 @@ export class SubscriptionsService {
   ) {}
   async subscribeToFund(id: Types.ObjectId, payload: SubscribeUserDto) {
     const userWallet = (await this.usersService.getUser(id)).wallet;
+    const { minSubscriptionAmount, fundName } =
+      await this.fundsService.getFundById(payload.fund);
 
     if (userWallet < payload.amount) {
       throw new HttpException(
-        'No hay suficiente saldo en la billetera',
+        `No tiene saldo disponible para vincularse al fondo ${fundName}`,
         HttpStatus.BAD_REQUEST,
       );
     }
 
-    const { minSubscriptionAmount, fundName } =
-      await this.fundsService.getFundById(payload.fund);
     if (payload.amount < minSubscriptionAmount) {
       throw new HttpException(
         'El monto es menos de lo mínimo requerido',
