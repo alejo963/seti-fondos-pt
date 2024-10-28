@@ -11,7 +11,7 @@ import {
   MatDialogConfig,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { ModalComponent } from './modal/modal.component';
+import { SubscriptionModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'app-funds',
@@ -21,7 +21,7 @@ import { ModalComponent } from './modal/modal.component';
 })
 export class AppFundsComponent {
   dialogConfig = new MatDialogConfig();
-  modalDialog: MatDialogRef<ModalComponent, any> | undefined;
+  modalDialog: MatDialogRef<SubscriptionModalComponent, any> | undefined;
   funds = signal<Fund[]>([]);
   constructor(
     private fundsService: FundsService,
@@ -41,7 +41,7 @@ export class AppFundsComponent {
     this.dialogConfig.id = 'modal-component';
     this.dialogConfig.height = '300px';
     this.dialogConfig.width = '500px';
-    this.modalDialog = this.matDialog.open(ModalComponent, this.dialogConfig);
+    this.modalDialog = this.matDialog.open(SubscriptionModalComponent, this.dialogConfig);
 
     this.modalDialog.afterClosed().subscribe((amount: number) => {
       if (amount) {

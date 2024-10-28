@@ -1,0 +1,22 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0"
+      >¿Desea cancelar la suscripción?</mat-card-title
+    >
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <div class="m-t-12">
+      <button
+        mat-flat-button
+        color="primary"
+        class="m-r-8"
+        (click)="closeTrue()"
+      >
+        Confirmar
+      </button>
+      <button mat-stroked-button color="warn" (click)="closeFalse()">
+        Cancelar
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

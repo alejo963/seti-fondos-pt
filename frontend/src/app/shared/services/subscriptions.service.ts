@@ -15,10 +15,16 @@ export class SubscriptionsService {
     );
   }
 
-  subscribeToFund(id: string, payload: SubscribeUserDto) {
+  subscribeToFund(userId: string, payload: SubscribeUserDto) {
     return this.http.post<Subscription>(
-      'http://localhost:3000/users/' + id + '/subscriptions',
+      'http://localhost:3000/users/' + userId + '/subscriptions',
       payload
+    );
+  }
+
+  cancelSubscription(userId: string, subId: string) {
+    return this.http.delete<Subscription>(
+      'http://localhost:3000/users/' + userId + '/subscriptions/' + subId
     );
   }
 }

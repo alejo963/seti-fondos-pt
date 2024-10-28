@@ -9,13 +9,13 @@ import { FormControl, Validators } from '@angular/forms';
   imports: [MaterialModule],
   templateUrl: './modal.component.html',
 })
-export class ModalComponent implements OnInit {
+export class SubscriptionModalComponent implements OnInit {
   isAmount = signal<boolean>(true);
   amountFormControl = new FormControl('amount', [
     Validators.required,
     Validators.min(0),
   ]);
-  constructor(public dialogRef: MatDialogRef<ModalComponent>) {}
+  constructor(public dialogRef: MatDialogRef<SubscriptionModalComponent>) {}
 
   ngOnInit(): void {}
 

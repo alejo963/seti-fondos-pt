@@ -7,6 +7,12 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material.module';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { Subscription } from '../../shared/models/subscription.model';
+import {
+  MatDialog,
+  MatDialogConfig,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { CancelSubscriptionModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'app-subscriptions',
@@ -15,7 +21,12 @@ import { Subscription } from '../../shared/models/subscription.model';
   imports: [MaterialModule, TablerIconsModule, CommonModule],
 })
 export class AppSubscriptionsComponent implements OnInit {
-  constructor(private subscriptionsService: SubscriptionsService) {}
+  dialogConfig = new MatDialogConfig();
+  modalDialog: MatDialogRef<CancelSubscriptionModalComponent, any> | undefined;
+  constructor(
+    private subscriptionsService: SubscriptionsService,
+    public matDialog: MatDialog
+  ) {}
   subscriptions = signal<Subscription[]>([]);
   ngOnInit(): void {
     this.subscriptionsService
@@ -27,9 +38,25 @@ export class AppSubscriptionsComponent implements OnInit {
       });
   }
 
-  hidden = false;
+  openModal(subscriptionId: string) {
+    this.dialogConfig.id = 'cancel-modal-component';
+    this.dialogConfig.height = '300px';
+    this.dialogConfig.width = '500px';
+    this.modalDialog = this.matDialog.open(
+      CancelSubscriptionModalComponent,
+      this.dialogConfig
+    );
 
-  toggleBadgeVisibility() {
-    this.hidden = !this.hidden;
+    this.modalDialog.afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.subscriptionsService
+          .cancelSubscription('671e6f4d59067cabbc071b5d', subscriptionId)
+          .subscribe({
+            next: () => {
+              window.location.reload();
+            },
+          });
+      }
+    });
   }
 }
