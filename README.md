@@ -30,7 +30,7 @@ En esta sección, el usuario puede observar que suscripciones tiene activas y pu
 
 ### Usuario
 
-Aquí podrá observar la información del usuario activo y seleccionar el método de notificación (mensaje de texto o correo electrónico).
+Aquí se observa y actualiza la información del usuario activo. Aquí se configura el método de notificación de las suscripciones.
 
 ![alt text](images/usuario.png)
 
