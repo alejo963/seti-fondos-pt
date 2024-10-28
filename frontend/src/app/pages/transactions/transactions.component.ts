@@ -46,13 +46,14 @@ export interface Vegetable {
   selector: 'app-transactions',
   standalone: true,
   templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.scss'],
   imports: [MaterialModule, TablerIconsModule, CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppTransactionsComponent {
-  constructor(private transactionsService: TransactionsService) {}
   transactions = signal<Transaction[]>([]);
+  displayedColumns: string[] = ['type', 'amount', 'user', 'fund', 'createdAt'];
+
+  constructor(private transactionsService: TransactionsService) {}
 
   ngOnInit() {
     this.transactionsService.getTransactions().subscribe({
