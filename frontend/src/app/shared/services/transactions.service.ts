@@ -10,7 +10,7 @@ export class TransactionsService {
 
   getTransactions(params?: any) {
     HttpParams;
-    return this.http.get<Transaction[]>('http://localhost:3000/transactions/', {
+    return this.http.get<any>('http://localhost:3000/transactions/', {
       params: params,
     });
   }

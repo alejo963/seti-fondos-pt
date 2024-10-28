@@ -20,14 +20,15 @@ export class AppTransactionsComponent {
   transactions = signal<Transaction[]>([]);
   displayedColumns: string[] = ['type', 'amount', 'user', 'fund', 'createdAt'];
   currentPage = 0;
-  transactionsCount= 100;
+  transactionsCount: number;
 
   constructor(private transactionsService: TransactionsService) {}
 
   ngOnInit() {
     this.transactionsService.getTransactions().subscribe({
-      next: (transactions) => {
-        this.transactions.set(transactions);
+      next: (response) => {
+        this.transactions.set(response.data.transactions);
+        this.transactionsCount = response.data.count;
       },
     });
   }
@@ -40,8 +41,9 @@ export class AppTransactionsComponent {
     };
 
     this.transactionsService.getTransactions(params).subscribe({
-      next: (transactions) => {
-        this.transactions.set(transactions);
+      next: (response) => {
+        this.transactions.set(response.data.transactions);
+        this.transactionsCount = response.data.count;
       },
     });
   }

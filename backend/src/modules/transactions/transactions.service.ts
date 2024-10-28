@@ -7,6 +7,7 @@ import {
 import { Transaction } from './schemas/transaction.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { stat } from 'node:fs';
 
 @Injectable()
 export class TransactionsService {
@@ -15,19 +16,23 @@ export class TransactionsService {
     private readonly transactionModel: Model<Transaction>,
   ) {}
 
-  async getTransactions(params: FilterTransactionsDto): Promise<Transaction[]> {
+  async getTransactions(params: FilterTransactionsDto) {
     const { limit, offset } = params || {
       limit: 10,
       offset: 0,
     };
 
     const order = params.order === Order.ASC ? 1 : -1;
-    return this.transactionModel
+    const count = await this.transactionModel.countDocuments().exec();
+
+    const transactions = await this.transactionModel
       .find()
       .skip(offset)
       .limit(limit)
       .sort({ createdAt: order })
       .exec();
+
+    return { status: 200, data: { count, transactions } };
   }
   async createTransaction(payload: CreateTransactionDto): Promise<Transaction> {
     const createdTransaction = await this.transactionModel.create({
