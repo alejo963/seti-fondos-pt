@@ -1,6 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dtos/user.dto';
+import { CreateUserDto, UpdateUserDto } from './dtos/user.dto';
 import { SubscriptionsService } from './subscriptions/subscriptions.service';
 import { SubscribeUserDto } from './subscriptions/dtos/subscription.dto';
 import { Types } from 'mongoose';
@@ -22,6 +30,14 @@ export class UsersController {
   @Post()
   async createUser(@Body() payload: CreateUserDto) {
     return await this.usersService.createUser(payload);
+  }
+
+  @Put(':id')
+  async updateUser(
+    @Param('id') id: Types.ObjectId,
+    @Body() payload: UpdateUserDto,
+  ) {
+    return await this.usersService.updateUser(id, payload);
   }
 
   @Post(':id/subscriptions')

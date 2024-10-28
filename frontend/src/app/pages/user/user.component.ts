@@ -22,6 +22,11 @@ export class AppUserComponent {
   }
 
   handleRadioEvent(event: MatRadioChange) {
-    console.log(event);
+    const payload = { notificationMethod: event.value };
+    this.userService.updateUser('671e6f4d59067cabbc071b5d', payload).subscribe({
+      next: (user) => {
+        this.user.set(user);
+      },
+    });
   }
 }
