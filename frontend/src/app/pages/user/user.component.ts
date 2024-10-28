@@ -5,6 +5,7 @@ import { User } from '../../shared/models/user.model';
 import { MatRadioChange } from '@angular/material/radio';
 import { environment } from '../../../environments/environment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user',
@@ -27,7 +28,10 @@ export class AppUserComponent {
     // method: new FormControl('method', [Validators.required]),
   });
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private snackbar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.userService.getUser(environment.testUserId).subscribe({
@@ -40,7 +44,7 @@ export class AppUserComponent {
     });
   }
 
-  openModal() {
+  updateUser() {
     const payload = {
       email: this.formGroup.get('email')?.value,
       phoneNumber: `+57${this.formGroup.get('phoneNumber')?.value}`,
@@ -49,7 +53,14 @@ export class AppUserComponent {
     this.userService.updateUser(environment.testUserId, payload).subscribe({
       next: (user) => {
         this.user.set(user);
+        this.openSnackBar();
       },
+    });
+  }
+
+  openSnackBar() {
+    this.snackbar.open("Datos actualizados", 'Ok', {
+      duration: 4000,
     });
   }
 }
