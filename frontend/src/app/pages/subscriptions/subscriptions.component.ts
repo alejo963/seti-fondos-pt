@@ -54,7 +54,7 @@ export class AppSubscriptionsComponent implements OnInit {
           .cancelSubscription(environment.testUserId, subscriptionId)
           .subscribe({
             next: () => {
-              window.location.reload();
+              this.ngOnInit();
             },
           });
       }
