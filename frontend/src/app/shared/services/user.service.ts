@@ -10,7 +10,6 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUser(id: string) {
-    console.log(environment.apiUrl)
     return this.http.get<User>(environment.apiUrl + '/users/' + id);
   }
 

@@ -59,7 +59,6 @@ export class AppFundsComponent {
   subscribeToFund(fundId: string, amount: number) {
     const payload: SubscribeUserDto = { amount, fund: fundId };
 
-    console.log(fundId);
     this.subscriptionsService
       .subscribeToFund(environment.testUserId, payload)
       .subscribe({
