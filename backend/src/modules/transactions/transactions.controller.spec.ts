@@ -3,6 +3,7 @@ import { TransactionsController } from './transactions.controller';
 import { TransactionsService } from './transactions.service';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { mockTransaction } from '../../../test/mocks/transactions.service';
+import { HttpStatus } from '@nestjs/common';
 
 describe('TransactionsController', () => {
   let controller: TransactionsController;
@@ -33,10 +34,14 @@ describe('TransactionsController', () => {
 
   it('should get transactions', async () => {
     const mockedTransaction = mockTransaction(new Date());
-    jest
-      .spyOn(service, 'getTransactions')
-      .mockResolvedValueOnce([mockedTransaction as any]);
+    jest.spyOn(service, 'getTransactions').mockResolvedValueOnce({
+      statusCode: HttpStatus.OK,
+      data: { count: 1, transactions: [mockedTransaction as any] },
+    });
     const transactions = await controller.getTransactions({});
-    expect(transactions).toEqual([mockedTransaction as any]);
+    expect(transactions).toEqual({
+      statusCode: HttpStatus.OK,
+      data: { count: 1, transactions: [mockedTransaction as any] },
+    });
   });
 });

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import {
   CreateTransactionDto,
   FilterTransactionsDto,
@@ -7,7 +7,6 @@ import {
 import { Transaction } from './schemas/transaction.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { stat } from 'node:fs';
 
 @Injectable()
 export class TransactionsService {
@@ -34,7 +33,7 @@ export class TransactionsService {
       .populate('fund')
       .exec();
 
-    return { status: 200, data: { count, transactions } };
+    return { statusCode: HttpStatus.OK, data: { count, transactions } };
   }
   async createTransaction(payload: CreateTransactionDto): Promise<Transaction> {
     const createdTransaction = await this.transactionModel.create({
