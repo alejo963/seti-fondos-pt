@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Matdash": {
+    "fondos-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,18 +17,19 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["apexcharts", "bezier-easing", "moment"],
-            "outputPath": "dist/Matdash",
+            "allowedCommonJsDependencies": [
+              "apexcharts",
+              "bezier-easing",
+              "moment"
+            ],
+            "outputPath": "dist/fondos-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "src/styles.scss",
-              "src/assets/scss/style.scss"
-            ],
+            "styles": ["src/styles.scss", "src/assets/scss/style.scss"],
             "scripts": []
           },
           "configurations": {
@@ -62,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Matdash:build:production"
+              "buildTarget": "fondos-frontend:build:production"
             },
             "development": {
-              "buildTarget": "Matdash:build:development"
+              "buildTarget": "fondos-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "Matdash:build"
+            "buildTarget": "fondos-frontend:build"
           }
         },
         "test": {
