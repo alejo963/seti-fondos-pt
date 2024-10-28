@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subscription } from '../models/subscription.model';
 import { SubscribeUserDto } from '../dtos/subscription.dto';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,20 +12,20 @@ export class SubscriptionsService {
 
   getSubscriptions(userId: string) {
     return this.http.get<Subscription[]>(
-      'http://localhost:3000/users/' + userId + '/subscriptions'
+      environment.apiUrl + '/users/' + userId + '/subscriptions'
     );
   }
 
   subscribeToFund(userId: string, payload: SubscribeUserDto) {
     return this.http.post<Subscription>(
-      'http://localhost:3000/users/' + userId + '/subscriptions',
+      environment.apiUrl + '/users/' + userId + '/subscriptions',
       payload
     );
   }
 
   cancelSubscription(userId: string, subId: string) {
     return this.http.delete<Subscription>(
-      'http://localhost:3000/users/' + userId + '/subscriptions/' + subId
+      environment.apiUrl + '/users/' + userId + '/subscriptions/' + subId
     );
   }
 }

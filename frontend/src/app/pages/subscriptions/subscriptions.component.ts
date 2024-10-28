@@ -13,6 +13,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { CancelSubscriptionModalComponent } from './modal/modal.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-subscriptions',
@@ -30,7 +31,7 @@ export class AppSubscriptionsComponent implements OnInit {
   subscriptions = signal<Subscription[]>([]);
   ngOnInit(): void {
     this.subscriptionsService
-      .getSubscriptions('671e6f4d59067cabbc071b5d')
+      .getSubscriptions(environment.testUserId)
       .subscribe({
         next: (subscriptions) => {
           this.subscriptions.set(subscriptions);
@@ -50,7 +51,7 @@ export class AppSubscriptionsComponent implements OnInit {
     this.modalDialog.afterClosed().subscribe((confirm: boolean) => {
       if (confirm) {
         this.subscriptionsService
-          .cancelSubscription('671e6f4d59067cabbc071b5d', subscriptionId)
+          .cancelSubscription(environment.testUserId, subscriptionId)
           .subscribe({
             next: () => {
               window.location.reload();

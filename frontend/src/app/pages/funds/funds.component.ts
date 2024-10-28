@@ -13,6 +13,7 @@ import {
 } from '@angular/material/dialog';
 import { SubscriptionModalComponent } from './modal/modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-funds',
@@ -60,7 +61,7 @@ export class AppFundsComponent {
 
     console.log(fundId);
     this.subscriptionsService
-      .subscribeToFund('671e6f4d59067cabbc071b5d', payload)
+      .subscribeToFund(environment.testUserId, payload)
       .subscribe({
         next: () => {
           this.openSnackBar('Se ha suscrito exitosamente a este fondo');
