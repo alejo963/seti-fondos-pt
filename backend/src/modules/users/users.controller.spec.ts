@@ -53,6 +53,12 @@ describe('UsersController', () => {
     expect(user).toEqual(mockUser());
   });
 
+  it('should update user', async () => {
+    jest.spyOn(service, 'updateUser').mockResolvedValueOnce(mockUser() as any);
+    const user = await controller.updateUser(mockUser()._id, mockUser() as any);
+    expect(user).toEqual(mockUser());
+  });
+
   it('should subscribe user', async () => {
     jest
       .spyOn(subscriptionService, 'subscribeToFund')

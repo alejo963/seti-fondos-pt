@@ -17,6 +17,7 @@ import { mockFund } from '../../../../test/mocks/funds.service';
 import { Transaction } from '../../transactions/schemas/transaction.schema';
 import { stubMongoId } from '../../../../test/mocks/utility.mock';
 import { SubscribeUserDto } from './dtos/subscription.dto';
+import { HttpStatus } from '@nestjs/common';
 
 describe('SubscriptionsService', () => {
   let service: SubscriptionsService;
@@ -95,7 +96,10 @@ describe('SubscriptionsService', () => {
       subscribeUserDto,
     );
 
-    expect(subscription).toEqual(mockedSubscription);
+    expect(subscription).toEqual({
+      statusCode: HttpStatus.CREATED,
+      data: { createdSubscription: mockedSubscription },
+    });
   });
 
   it('should throw when no enough amount', async () => {
@@ -108,8 +112,12 @@ describe('SubscriptionsService', () => {
       .spyOn(usersService, 'getUser')
       .mockResolvedValueOnce(mockUser() as any);
 
+    jest
+      .spyOn(fundsService, 'getFundById')
+      .mockResolvedValueOnce(mockFund() as any);
+
     await expect(service.subscribeToFund(stubMongoId, payload)).rejects.toThrow(
-      'There is not enough money on wallet',
+      `No tiene saldo disponible para vincularse al fondo ${mockFund().fundName}`,
     );
   });
 
@@ -128,7 +136,7 @@ describe('SubscriptionsService', () => {
       .mockResolvedValueOnce(mockFund() as any);
 
     await expect(service.subscribeToFund(stubMongoId, payload)).rejects.toThrow(
-      'Amount is less than min required amount',
+      'El monto es menos de lo mínimo requerido',
     );
   });
 
@@ -157,7 +165,7 @@ describe('SubscriptionsService', () => {
     );
 
     await expect(service.subscribeToFund(stubMongoId, payload)).rejects.toThrow(
-      'User is already subscribed to this fund',
+      'El usuario ya está suscrito a este fondo',
     );
   });
 
