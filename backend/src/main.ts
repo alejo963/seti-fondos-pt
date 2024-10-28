@@ -15,6 +15,8 @@ async function bootstrap() {
     }),
   );
 
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('Backend de fondos BTG')
     .setDescription('Esta es la API del backend de fondos BTG')

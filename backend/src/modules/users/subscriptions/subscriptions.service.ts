@@ -21,19 +21,19 @@ export class SubscriptionsService {
   ) {}
   async subscribeToFund(id: Types.ObjectId, payload: SubscribeUserDto) {
     const userWallet = (await this.usersService.getUser(id)).wallet;
+    const { minSubscriptionAmount, fundName } =
+      await this.fundsService.getFundById(payload.fund);
 
     if (userWallet < payload.amount) {
       throw new HttpException(
-        'There is not enough money on wallet',
+        `No tiene saldo disponible para vincularse al fondo ${fundName}`,
         HttpStatus.BAD_REQUEST,
       );
     }
 
-    const { minSubscriptionAmount, fundName } =
-      await this.fundsService.getFundById(payload.fund);
     if (payload.amount < minSubscriptionAmount) {
       throw new HttpException(
-        'Amount is less than min required amount',
+        'El monto es menos de lo mínimo requerido',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -44,7 +44,7 @@ export class SubscriptionsService {
 
     if (existingSubscription) {
       throw new HttpException(
-        'User is already subscribed to this fund',
+        'El usuario ya está suscrito a este fondo',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -66,7 +66,7 @@ export class SubscriptionsService {
     });
 
     this.notificationsService.sendNotification(updatedUser, fundName);
-    return createdSubscription;
+    return { statusCode: HttpStatus.CREATED, data: { createdSubscription } };
   }
 
   async getUserSubscriptions(id: Types.ObjectId): Promise<Subscription[]> {

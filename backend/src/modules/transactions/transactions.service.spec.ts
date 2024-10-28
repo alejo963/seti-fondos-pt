@@ -8,7 +8,7 @@ import {
   transactionModelMockProvider,
 } from '../../../test/mocks/transactions.service';
 import { createMock } from '@golevelup/ts-jest';
-import { skip } from 'node:test';
+import { HttpStatus } from '@nestjs/common';
 
 describe('TransactionsService', () => {
   let service: TransactionsService;
@@ -33,19 +33,31 @@ describe('TransactionsService', () => {
 
   it('should get transactions', async () => {
     const mockedTransactions = [mockTransaction()];
+    jest.spyOn(model, 'countDocuments').mockReturnValueOnce(
+      createMock<Query<number, Transaction>>({
+        exec: jest.fn().mockResolvedValueOnce(1),
+      }),
+    );
     jest.spyOn(model, 'find').mockReturnValueOnce(
       createMock<Query<Transaction[], Transaction[]>>({
         skip: () => ({
           limit: () => ({
             sort: () => ({
-              exec: jest.fn().mockResolvedValueOnce(mockedTransactions),
+              populate: () => ({
+                populate: () => ({
+                  exec: jest.fn().mockResolvedValueOnce(mockedTransactions),
+                }),
+              }),
             }),
           }),
         }),
       }),
     );
     const transactions = await service.getTransactions({});
-    expect(transactions).toEqual(mockedTransactions);
+    expect(transactions).toEqual({
+      statusCode: HttpStatus.OK,
+      data: { count: 1, transactions: mockedTransactions },
+    });
   });
 
   it('should create transaction', async () => {

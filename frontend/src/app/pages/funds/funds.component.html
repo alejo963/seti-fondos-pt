@@ -1,0 +1,34 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Fondos de Inversión</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    @for(fund of funds(); track fund._id; let i = $index) {
+    <mat-card class="b-1 shadow-none">
+      <mat-card-header>
+        <mat-card-title>{{fund.fundName}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="b-t-1">
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle class="f-s-16 f-w-600">Categoría</span>
+            <span matListItemLine class="mat-body-1">{{fund.category}}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle class="f-s-16 f-w-600">Monto mínimo para suscripción</span>
+            <span matListItemLine class="mat-body-1">${{fund.minSubscriptionAmount}}</span>
+          </mat-list-item>
+        </mat-list>
+        <button
+        mat-flat-button
+        color="primary"
+        class="d-flex justify-content-center"
+        (click)="openModal(fund._id)"
+      >
+        Suscribirme
+      </button>
+      </mat-card-content>
+    </mat-card>
+    }
+  </mat-card-content>
+</mat-card>

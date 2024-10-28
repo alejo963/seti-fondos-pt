@@ -32,7 +32,7 @@ export class NotificationsService {
     this.mailerService.sendMail({
       from: 'avelasquez@cidenet.com.co',
       to: user.email,
-      subject: 'Nueva subscripción',
+      subject: 'Nueva suscripción',
       text: message,
     });
   }

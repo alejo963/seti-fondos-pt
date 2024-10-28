@@ -1,0 +1,55 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Usuario</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <mat-card class="b-1 shadow-none">
+      <mat-card-header>
+        <mat-card-title>Información</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="b-t-1">
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle class="f-s-16 f-w-600">Nombre completo</span>
+            <span matListItemLine class="mat-body-1"
+              >{{ user().firstName }} {{ user().lastName }}</span
+            >
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle class="f-s-16 f-w-600"
+              >Dinero en billetera</span
+            >
+            <span matListItemLine class="mat-body-1">{{ user().wallet }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle class="f-s-16 f-w-600">Celular</span>
+            <span matListItemLine class="mat-body-1">{{
+              user().phoneNumber
+            }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle class="f-s-16 f-w-600"
+              >Correo electrónico</span
+            >
+            <span matListItemLine class="mat-body-1">{{ user().email }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle class="f-s-16 f-w-600">Cédula</span>
+            <span matListItemLine class="mat-body-1">{{
+              user().nationalId
+            }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle class="f-s-16 f-w-600"
+              >Método de notificación
+            </span>
+            <mat-radio-group (change)="handleRadioEvent($event)" [value]="user().notificationMethod">
+              <mat-radio-button value="email">Correo electrónico</mat-radio-button>
+              <mat-radio-button value="sms">Mensaje de texto</mat-radio-button>
+            </mat-radio-group>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </mat-card-content>
+</mat-card>

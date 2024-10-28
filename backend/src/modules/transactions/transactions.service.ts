@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import {
   CreateTransactionDto,
   FilterTransactionsDto,
@@ -15,19 +15,25 @@ export class TransactionsService {
     private readonly transactionModel: Model<Transaction>,
   ) {}
 
-  async getTransactions(params: FilterTransactionsDto): Promise<Transaction[]> {
+  async getTransactions(params: FilterTransactionsDto) {
     const { limit, offset } = params || {
       limit: 10,
       offset: 0,
     };
 
     const order = params.order === Order.ASC ? 1 : -1;
-    return this.transactionModel
+    const count = await this.transactionModel.countDocuments().exec();
+
+    const transactions = await this.transactionModel
       .find()
       .skip(offset)
       .limit(limit)
       .sort({ createdAt: order })
+      .populate('user')
+      .populate('fund')
       .exec();
+
+    return { statusCode: HttpStatus.OK, data: { count, transactions } };
   }
   async createTransaction(payload: CreateTransactionDto): Promise<Transaction> {
     const createdTransaction = await this.transactionModel.create({
