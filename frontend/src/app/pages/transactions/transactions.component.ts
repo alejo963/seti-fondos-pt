@@ -34,7 +34,6 @@ export class AppTransactionsComponent {
   }
 
   handlePageEvent(event: PageEvent) {
-    console.log(event.pageIndex, event.pageSize);
     const params: TransactionQueryParams = {
       limit: event.pageSize,
       offset: event.pageSize * event.pageIndex,

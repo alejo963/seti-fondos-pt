@@ -1,3 +1,6 @@
+import { Fund } from './fund.model';
+import { User } from './user.model';
+
 export interface Transaction {
   _id: string;
   type: string;
@@ -10,8 +13,8 @@ export interface Transaction {
 export interface TransactionQueryParams {
   limit?: number;
   offset?: number;
-  user?: string;
-  fund?: string;
+  user?: User;
+  fund?: Fund;
   type?: string;
   createdBefore?: Date;
   createdAfter?: Date;

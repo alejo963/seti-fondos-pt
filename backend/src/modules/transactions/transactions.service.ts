@@ -30,6 +30,8 @@ export class TransactionsService {
       .skip(offset)
       .limit(limit)
       .sort({ createdAt: order })
+      .populate('user')
+      .populate('fund')
       .exec();
 
     return { status: 200, data: { count, transactions } };
