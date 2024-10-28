@@ -4,7 +4,7 @@ Este repositorio contiene tanto el frontend desarrollado en Angular y el backend
 
 La aplicación se encuentra desplegada en AWS, con el frontend hospedado en S3 y el backend junto con la base de datos Mongo ejectándose en un container en una instancia de EC2.
 
-## Acceder a la aplicación desplegueda
+## Acceder a la aplicación desplegada
 
 Para acceder a la aplicación, se ingresa al siguiente link: http://273354646519-app-bucket.s3-website.us-east-2.amazonaws.com
 
