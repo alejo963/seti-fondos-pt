@@ -7,7 +7,7 @@ export const navItems: NavItem[] = [
     route: '/fondos',
   },
   {
-    displayName: 'Subscripciones',
+    displayName: 'Suscripciones',
     iconName: 'solar:archive-minimalistic-line-duotone',
     route: '/suscripciones',
   },

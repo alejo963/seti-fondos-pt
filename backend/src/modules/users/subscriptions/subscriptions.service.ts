@@ -24,7 +24,7 @@ export class SubscriptionsService {
 
     if (userWallet < payload.amount) {
       throw new HttpException(
-        'There is not enough money on wallet',
+        'No hay suficiente saldo en la billetera',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -33,7 +33,7 @@ export class SubscriptionsService {
       await this.fundsService.getFundById(payload.fund);
     if (payload.amount < minSubscriptionAmount) {
       throw new HttpException(
-        'Amount is less than min required amount',
+        'El monto es menos de lo mínimo requerido',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -44,7 +44,7 @@ export class SubscriptionsService {
 
     if (existingSubscription) {
       throw new HttpException(
-        'User is already subscribed to this fund',
+        'El usuario ya está suscrito a este fondo',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -66,7 +66,7 @@ export class SubscriptionsService {
     });
 
     this.notificationsService.sendNotification(updatedUser, fundName);
-    return createdSubscription;
+    return { statusCode: HttpStatus.CREATED, data: { createdSubscription } };
   }
 
   async getUserSubscriptions(id: Types.ObjectId): Promise<Subscription[]> {

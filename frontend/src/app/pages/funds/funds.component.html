@@ -15,10 +15,19 @@
             <span matListItemLine class="mat-body-1">{{fund.category}}</span>
           </mat-list-item>
           <mat-list-item>
-            <span matListItemTitle class="f-s-16 f-w-600">Monto mínimo para subscripción</span>
+            <span matListItemTitle class="f-s-16 f-w-600">Monto mínimo para suscripción</span>
             <span matListItemLine class="mat-body-1">${{fund.minSubscriptionAmount}}</span>
           </mat-list-item>
         </mat-list>
+        <button
+        mat-flat-button
+        color="primary"
+        target="_blank"
+        class="d-flex justify-content-center"
+        (click)="subscribeToFund(fund._id)"
+      >
+        Suscribirme
+      </button>
       </mat-card-content>
     </mat-card>
     }
