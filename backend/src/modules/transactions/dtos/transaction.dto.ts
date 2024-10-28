@@ -31,7 +31,6 @@ export class FilterTransactionsDto {
   @IsOptional()
   @IsPositive()
   limit?: number;
-  @IsPositive()
   @IsOptional()
   @Min(0)
   offset?: number;

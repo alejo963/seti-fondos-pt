@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transaction } from '../models/transaction.model';
 
@@ -9,6 +9,9 @@ export class TransactionsService {
   constructor(private http: HttpClient) {}
 
   getTransactions(params?: any) {
-    return this.http.get<Transaction[]>('http://localhost:3000/transactions/');
+    HttpParams;
+    return this.http.get<Transaction[]>('http://localhost:3000/transactions/', {
+      params: params,
+    });
   }
 }
