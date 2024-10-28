@@ -2,7 +2,6 @@
 
 Este es el directorio del frontend desarrollado en [Angular](https://angular.dev/).
 
-
 ## Configuración
 
 ```bash
@@ -18,5 +17,3 @@ $ npm run start
 # compilar
 $ npm run build
 ```
-
-## Despliegue

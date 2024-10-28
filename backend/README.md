@@ -36,5 +36,3 @@ $ npm run test:cov
 ## Configuración de ambientes
 
 El backend hace uso de archivos .env para cargar la configuracion de ambiente tanto para desarrollo como producción. En modo de desarrollo, obtiene las variables del archivo .env. En producción las toma del archivo prod.env. El archivo env.template sirve de plantilla para crear los archivos de configuración mencionados.
-
-## Despliegue
