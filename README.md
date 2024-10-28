@@ -36,7 +36,7 @@ Aquí podrá observar la información del usuario activo y seleccionar el métod
 
 ### Transacciones
 
-Por último, en esta sección se detalla el historial de transacciones de forma paginada, mostrando el tipo de transacción, la cedula del usuario, el nombre del fondo y la fecha de la transacción.
+Por último, en esta sección se detalla el historial de transacciones de forma paginada, mostrando el tipo de transacción, la cédula del usuario, el nombre del fondo y la fecha de la transacción.
 
 ![alt text](images/transacciones.png)
 
@@ -46,6 +46,46 @@ La documentación del API se puede acceder en http://13.58.187.42:3000/docs.
 
 ## Despliegue de recursos con CloudFormation
 
-En el archivo `resources.yml` se encuentra especificado la creación de un stack con los recursos, permisos y configuraciones necesarias para el despliegue de la aplicación. Para esto, se necesita haber creado un par de llaves de acceso en EC2.
+En el archivo `resources.yml` se encuentra especificado la creación de un stack con los recursos, permisos y configuraciones necesarias para el despliegue de la aplicación. La plantilla generará un bucket de S3 y una instancia EC2 con los permisos y configuraciones para la conexión Para esto, se necesita haber creado un par de llaves de acceso en EC2.
 
 En la sección de la creación de la instancia de EC2, se debe reemplazar los valores de ImageId y KeyName por los valores correctos según la región y el nombre del par de llaves, respectivamente.
+
+## Despliegue de artefactos
+
+### Frontend
+
+Dentro del directorio frontend, ejecutar el siguiente comando:
+
+```bash
+$ npm run build
+```
+
+Se creará el directorio dist que contiene todo los artefactos necesarios del frontend. Todo el contenido del directorio `dist` debe ser cargado dentro del bucket de S3 generado por el CloudFormation.
+
+### Backend
+
+En el directorio base de este repositorio, primero se debe eliminar las carpetas de node_modules y dist (en caso de que existan):
+
+```bash
+$ rm -r ./backend/node_modules
+$ rm -r ./backend/dist
+```
+
+Luego, se conecta a la instancia de EC2 por un tunel SSH, utilizando el archivo `.pem` del par de llaves generado previamente:
+
+```bash
+$ ssh -i "llave.pem" ec2-user@<ip publica de la instancia>
+```
+
+La terminal quedara conectada a la instancia de EC2. En otra terminal, se transfieren todo el directorio del backend:
+
+```bash
+$ scp -i "llave.pem" -r ./backend/  ec2-user@<ip publica de la instancia>:~/
+```
+
+Volviendo a la terminal conectada a la instancia, se ingresa al directorio del backend y se crean los contenedores de la base de datos y el backend mediante docker compose:
+
+```bash
+$ cd backend
+$ docker-compose up -d
+```
