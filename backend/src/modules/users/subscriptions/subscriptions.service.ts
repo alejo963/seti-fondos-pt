@@ -66,7 +66,7 @@ export class SubscriptionsService {
     });
 
     this.notificationsService.sendNotification(updatedUser, fundName);
-    return { statusCode: HttpStatus.CREATED, data: { createdSubscription } };
+    return createdSubscription;
   }
 
   async getUserSubscriptions(id: Types.ObjectId): Promise<Subscription[]> {

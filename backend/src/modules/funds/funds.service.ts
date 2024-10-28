@@ -9,7 +9,7 @@ export class FundsService {
   constructor(
     @InjectModel(Fund.name) private readonly fundsModel: Model<Fund>,
   ) {}
-  async getFunds() {
+  async getFunds(): Promise<Fund[]> {
     return await this.fundsModel.find().exec();
   }
 

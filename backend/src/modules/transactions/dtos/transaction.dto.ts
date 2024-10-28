@@ -34,21 +34,6 @@ export class FilterTransactionsDto {
   @IsOptional()
   @Min(0)
   offset?: number;
-  @IsOptional()
-  @IsMongoId()
-  user?: Types.ObjectId;
-  @IsMongoId()
-  @IsOptional()
-  fund?: Types.ObjectId;
-  @IsEnum(TransactionType)
-  @IsOptional()
-  type?: TransactionType;
-  @IsDate()
-  @IsOptional()
-  createdBefore?: Date;
-  @IsDate()
-  @IsOptional()
-  createdAfter?: Date;
   @IsEnum(Order)
   @IsOptional()
   order?: Order;

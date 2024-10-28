@@ -96,10 +96,7 @@ describe('SubscriptionsService', () => {
       subscribeUserDto,
     );
 
-    expect(subscription).toEqual({
-      statusCode: HttpStatus.CREATED,
-      data: { createdSubscription: mockedSubscription },
-    });
+    expect(subscription).toEqual(mockedSubscription);
   });
 
   it('should throw when no enough amount', async () => {

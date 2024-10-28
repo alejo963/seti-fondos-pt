@@ -12,7 +12,14 @@ import { CreateUserDto, UpdateUserDto } from './dtos/user.dto';
 import { SubscriptionsService } from './subscriptions/subscriptions.service';
 import { SubscribeUserDto } from './subscriptions/dtos/subscription.dto';
 import { Types } from 'mongoose';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadGatewayResponse,
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { User } from './schemas/user.schema';
+import { Subscription } from './subscriptions/schemas/subscription.schema';
 
 @ApiTags('users')
 @Controller('users')
@@ -41,6 +48,12 @@ export class UsersController {
   }
 
   @Post(':id/subscriptions')
+  @ApiBadRequestResponse({
+    description:
+      'Subscription already exists, not enough money on wallet or amount is less than minSubscriptionAmount',
+  })
+  @ApiCreatedResponse({
+    type: Subscription,})
   async subscribeToFund(
     @Param('id') id: Types.ObjectId,
     @Body() payload: SubscribeUserDto,

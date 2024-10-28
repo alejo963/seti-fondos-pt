@@ -1,7 +1,4 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { SubscriptionsService } from '../../shared/services/subscriptions.service';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material.module';
