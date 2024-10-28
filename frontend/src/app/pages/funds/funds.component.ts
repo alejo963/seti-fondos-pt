@@ -12,6 +12,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { SubscriptionModalComponent } from './modal/modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-funds',
@@ -26,7 +27,8 @@ export class AppFundsComponent {
   constructor(
     private fundsService: FundsService,
     private subscriptionsService: SubscriptionsService,
-    public matDialog: MatDialog
+    private matDialog: MatDialog,
+    private snackbar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -41,7 +43,10 @@ export class AppFundsComponent {
     this.dialogConfig.id = 'modal-component';
     this.dialogConfig.height = '300px';
     this.dialogConfig.width = '500px';
-    this.modalDialog = this.matDialog.open(SubscriptionModalComponent, this.dialogConfig);
+    this.modalDialog = this.matDialog.open(
+      SubscriptionModalComponent,
+      this.dialogConfig
+    );
 
     this.modalDialog.afterClosed().subscribe((amount: number) => {
       if (amount) {
@@ -57,11 +62,18 @@ export class AppFundsComponent {
     this.subscriptionsService
       .subscribeToFund('671e6f4d59067cabbc071b5d', payload)
       .subscribe({
-        next: (response) => {},
+        next: () => {
+          this.openSnackBar('Se ha suscrito exitosamente a este fondo');
+        },
+        error: (error) => {
+          this.openSnackBar(error.error.message);
+        },
       });
   }
 
-  handleCloseModal(data: any) {
-    console.log(data);
+  openSnackBar(message: string) {
+    this.snackbar.open(message, 'Ok', {
+      duration: 4000,
+    });
   }
 }

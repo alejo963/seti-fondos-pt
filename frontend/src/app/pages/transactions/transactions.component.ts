@@ -25,7 +25,7 @@ export class AppTransactionsComponent {
   constructor(private transactionsService: TransactionsService) {}
 
   ngOnInit() {
-    this.transactionsService.getTransactions().subscribe({
+    this.transactionsService.getTransactions({limit: 5}).subscribe({
       next: (response) => {
         this.transactions.set(response.data.transactions);
         this.transactionsCount = response.data.count;
