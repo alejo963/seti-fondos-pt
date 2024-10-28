@@ -27,7 +27,7 @@ export class NotificationsService {
   }
 
   async sendEmail(user: User, fundName: string) {
-    const message = `Hola ${user.firstName} ${user.lastName}! \nTe has subscrito al fondo ${fundName}`;
+    const message = `Hola ${user.firstName} ${user.lastName}! \nTe has suscrito al fondo ${fundName}`;
 
     this.mailerService.sendMail({
       from: 'avelasquez@cidenet.com.co',
@@ -38,7 +38,7 @@ export class NotificationsService {
   }
 
   async sendSms(user: User, fundName: string) {
-    const message = `Hola ${user.firstName} ${user.lastName}! Te has subscrito al fondo ${fundName}`;
+    const message = `Hola ${user.firstName} ${user.lastName}! Te has suscrito al fondo ${fundName}`;
     const params = {
       Message: message,
       PhoneNumber: user.phoneNumber,
