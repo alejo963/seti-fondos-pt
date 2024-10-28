@@ -9,10 +9,3 @@ export class SubscribeUserDto {
   @IsPositive()
   amount: number;
 }
-
-export class UnsubscribeUserDto {
-  @IsString()
-  userId: string;
-  @IsString()
-  fundId: string;
-}
