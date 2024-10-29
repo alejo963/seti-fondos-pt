@@ -28,10 +28,16 @@ $ npm run start:prod
 ```bash
 # unit tests
 $ npm run test
+```
 
+Para obtener el reporte de coverage:
+
+```bash
 # test coverage
 $ npm run test:cov
 ```
+
+Se creará el directorio `coverage`, que contiene el reporte. Aqui, dentro de la carpeta lcov-report, abrir el `index.html` en el navegador para visualizar el resultado de los tests.
 
 ## Configuración de ambientes
 
